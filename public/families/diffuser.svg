@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img">
+  <title>Square ceiling diffuser</title>
+  <rect width="640" height="480" fill="#ede8dc"/>
+  <g fill="none" stroke="#0e1c2f" stroke-width="2">
+    <rect x="160" y="100" width="320" height="280"/>
+    <rect x="200" y="140" width="240" height="200"/>
+    <rect x="240" y="180" width="160" height="120"/>
+    <rect x="280" y="210" width="80" height="60" stroke="#b85c38"/>
+  </g>
+  <text x="320" y="430" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5c6578">DIFFUSER · SQUARE · CEILING</text>
+</svg>

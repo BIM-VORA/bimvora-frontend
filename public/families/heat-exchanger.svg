@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img">
+  <title>Brazed plate heat exchanger</title>
+  <rect width="640" height="480" fill="#ede8dc"/>
+  <g fill="none" stroke="#0e1c2f" stroke-width="2">
+    <rect x="230" y="120" width="180" height="240"/>
+    <path d="M250 140v200M270 140v200M290 140v200M310 140v200M330 140v200M350 140v200M370 140v200M390 140v200"/>
+    <circle cx="210" cy="160" r="10" stroke="#b85c38"/>
+    <circle cx="210" cy="320" r="10" stroke="#b85c38"/>
+    <circle cx="430" cy="160" r="10"/>
+    <circle cx="430" cy="320" r="10"/>
+    <path d="M120 160h80M120 320h80M430 160h90M430 320h90"/>
+  </g>
+  <text x="320" y="430" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5c6578">PHE · BRAZED PLATE · PRIMARY / SECONDARY</text>
+</svg>

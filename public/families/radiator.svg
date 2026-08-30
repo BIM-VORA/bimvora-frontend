@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img">
+  <title>Hydronic panel radiator</title>
+  <rect width="640" height="480" fill="#ede8dc"/>
+  <g fill="none" stroke="#0e1c2f" stroke-width="2">
+    <rect x="140" y="130" width="360" height="200"/>
+    <path d="M160 150v160M200 150v160M240 150v160M280 150v160M320 150v160M360 150v160M400 150v160M440 150v160M480 150v160"/>
+    <circle cx="150" cy="360" r="8" stroke="#b85c38"/>
+    <circle cx="490" cy="360" r="8" stroke="#b85c38"/>
+    <path d="M150 352v-22M490 352v-22"/>
+  </g>
+  <text x="320" y="430" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5c6578">RADIATOR · WALL HOST · HYDRONIC</text>
+</svg>

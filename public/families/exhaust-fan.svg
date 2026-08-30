@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img">
+  <title>Roof exhaust fan</title>
+  <rect width="640" height="480" fill="#ede8dc"/>
+  <g fill="none" stroke="#0e1c2f" stroke-width="2">
+    <path d="M160 300h320v40H160z"/>
+    <path d="M200 300v-40h240v40"/>
+    <ellipse cx="320" cy="200" rx="90" ry="40"/>
+    <path d="M230 200v60M410 200v60"/>
+    <circle cx="320" cy="200" r="22" stroke="#b85c38"/>
+    <path d="M140 340h360" opacity=".5"/>
+  </g>
+  <text x="320" y="430" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5c6578">EXHAUST FAN · ROOF · CURB</text>
+</svg>

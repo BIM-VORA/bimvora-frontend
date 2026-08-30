@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img">
+  <title>Packaged air handling unit</title>
+  <rect width="640" height="480" fill="#ede8dc"/>
+  <g fill="none" stroke="#0e1c2f" stroke-width="2">
+    <rect x="90" y="160" width="460" height="180"/>
+    <path d="M180 160v180M270 160v180M400 160v180M490 160v180"/>
+    <rect x="100" y="180" width="70" height="140"/>
+    <rect x="190" y="190" width="70" height="120"/>
+    <rect x="280" y="200" width="110" height="100"/>
+    <circle cx="445" cy="250" r="42"/>
+    <circle cx="445" cy="250" r="18" stroke="#b85c38"/>
+    <path d="M90 340h460" opacity=".4"/>
+  </g>
+  <text x="320" y="430" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5c6578">AHU · MIX · FILTER · COIL · FAN</text>
+</svg>
