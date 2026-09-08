@@ -48,7 +48,7 @@ export function RegisterForm() {
       {state.success ? (
         <p className="text-sm text-ink">{state.success}</p>
       ) : null}
-      <Button type="submit" className="w-full rounded-none" disabled={pending}>
+      <Button type="submit" className="w-full " disabled={pending}>
         {pending ? "Creating…" : "Create account"}
       </Button>
       <p className="text-sm text-muted-foreground">

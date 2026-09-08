@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 474 128" role="img" aria-label="BIMVORA HVAC Clean Room on dark">
+  <defs>
+    <linearGradient id="bvGreenD" x1="0" y1="0" x2="0.25" y2="1">
+      <stop offset="0" stop-color="#3EE58C"/>
+      <stop offset="1" stop-color="#12B29C"/>
+    </linearGradient>
+    <linearGradient id="bvBlueD" x1="1" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#2AC6EC"/>
+      <stop offset="1" stop-color="#2E6FE0"/>
+    </linearGradient>
+    <linearGradient id="bvTagD" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3EE0A0"/>
+      <stop offset="1" stop-color="#4FA0DD"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(8,14) scale(0.83)">
+    <path d="M55 8 L38 8 L8 38 L8 82 L38 112 L55 112 L55 85 L30 60 L55 35 Z" fill="url(#bvGreenD)"/>
+    <path d="M65 8 L82 8 L112 38 L112 82 L82 112 L65 112 L65 85 L90 60 L65 35 Z" fill="url(#bvBlueD)"/>
+  </g>
+  <text x="120" y="84" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="60" font-weight="500" letter-spacing="4" fill="#FFFFFF">BIMVORA</text>
+  <text x="123" y="110" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="600" letter-spacing="9" fill="url(#bvTagD)">HVAC   CLEAN ROOM</text>
+</svg>

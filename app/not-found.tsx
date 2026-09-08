@@ -9,9 +9,9 @@ export default function NotFound() {
       </p>
       <h1 className="mt-2 text-3xl">Page not found</h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        That route is not in the BIM Lab catalog.
+        That route is not in the BIMVORA catalog.
       </p>
-      <Button asChild className="mt-6 rounded-none">
+      <Button asChild className="mt-6 ">
         <Link href="/shop">Back to shop</Link>
       </Button>
     </div>

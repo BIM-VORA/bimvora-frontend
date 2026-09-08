@@ -1,4 +1,4 @@
-# BIM Lab
+# BIMVORA
 
 Professional Revit family marketplace (Phase 1: storefront, catalog, cart, auth).
 
@@ -14,13 +14,19 @@ Next.js (App Router) · TypeScript · Tailwind CSS · shadcn/ui · Supabase (Pos
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `SUPABASE_SERVICE_ROLE_KEY` (server only)
    - `NEXT_PUBLIC_SITE_URL=http://localhost:3000`
-3. In the Supabase SQL editor run:
+3. In the Supabase SQL editor run in order:
    - `supabase/migrations/0001_init.sql`
+   - `supabase/migrations/0002_family_packs.sql`
+   - `supabase/migrations/0003_clean_room_discipline.sql`
+   - `supabase/migrations/0004_catalog_taxonomy.sql`
    - `supabase/seed.sql`
 4. Authentication → URL configuration: add `http://localhost:3000/auth/callback`.
 5. `npm install` then `npm run dev`.
 
-The catalog still renders from bundled seed data if Supabase keys are empty, so you can review the storefront immediately.
+The catalog and six pricing packs still render from bundled data if Supabase
+keys are empty, so you can review the storefront immediately. Student
+verification stays as a local pending preview until Supabase Storage is
+connected.
 
 ## Scripts
 

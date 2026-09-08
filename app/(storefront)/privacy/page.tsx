@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "How BIM Lab collects and uses account and order data.",
+  description: "How BIMVORA collects and uses account and order data.",
 };
 
 export default function PrivacyPage() {
@@ -18,7 +18,7 @@ export default function PrivacyPage() {
         </p>
         <p>
           We do not sell personal data. Payment card details, when a provider is
-          connected, will be processed by that provider — not stored on BIM Lab
+          connected, will be processed by that provider — not stored on BIMVORA
           servers.
         </p>
         <p>

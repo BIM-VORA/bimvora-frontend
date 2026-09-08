@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" role="img" aria-label="BIMVORA monochrome black logo">
+  <g transform="translate(8,4)">
+    <polygon points="54.5,19 54.5,45 32,58 32,32" fill="#000000"/>
+    <g fill="none" stroke="#000000" stroke-width="2.1" stroke-linejoin="round">
+      <polygon points="32,6 54.5,19 54.5,45 32,58 9.5,45 9.5,19"/>
+      <path d="M32 6 V32 M9.5 19 L32 32 M54.5 19 L32 32 M32 32 V58"/>
+    </g>
+    <g fill="#000000">
+      <circle cx="32" cy="6" r="2.1"/><circle cx="54.5" cy="19" r="2.1"/>
+      <circle cx="54.5" cy="45" r="2.1"/><circle cx="32" cy="58" r="2.1"/>
+      <circle cx="9.5" cy="45" r="2.1"/><circle cx="9.5" cy="19" r="2.1"/>
+    </g>
+  </g>
+  <text x="90" y="38" font-family="'Geist','Segoe UI',Arial,sans-serif" font-size="26" font-weight="600" letter-spacing="4" fill="#000000">BIMVORA</text>
+  <text x="91" y="56" font-family="'Geist Mono','Courier New',monospace" font-size="9" letter-spacing="5" fill="#000000">REVIT ù BIM CONTENT</text>
+</svg>

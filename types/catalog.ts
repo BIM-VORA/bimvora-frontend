@@ -5,6 +5,7 @@ export type Discipline =
   | "fire_protection"
   | "architectural"
   | "structural"
+  | "clean_room"
   | "other";
 
 export type FamilyKind = "loadable" | "nested";
@@ -43,11 +44,14 @@ export type Product = {
   compareAtPriceCents: number | null;
   categoryId: string;
   discipline: Discipline;
+  manufacturer: string | null;
   revitCategory: string;
   familyKind: FamilyKind;
   hosting: HostingType;
   revitVersions: string[];
   fileFormat: string;
+  cadFormats?: string[];
+  hasDatasheet?: boolean;
   isPublished: boolean;
   isFeatured: boolean;
   seoTitle: string | null;
@@ -61,11 +65,15 @@ export type ProductFilters = {
   q?: string;
   category?: string;
   discipline?: Discipline;
+  manufacturer?: string;
   revitVersion?: string;
   minPriceCents?: number;
   maxPriceCents?: number;
   featured?: boolean;
 };
+
+/** Depth of a category in the taxonomy tree. */
+export type CategoryLevel = "department" | "category" | "product_type";
 
 export const DISCIPLINE_LABELS: Record<Discipline, string> = {
   hvac: "HVAC",
@@ -74,6 +82,7 @@ export const DISCIPLINE_LABELS: Record<Discipline, string> = {
   fire_protection: "Fire Protection",
   architectural: "Architectural",
   structural: "Structural",
+  clean_room: "Clean Room / Pharmaceutical",
   other: "Other",
 };
 

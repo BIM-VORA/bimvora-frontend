@@ -19,7 +19,7 @@ function LegalLayout({
 
 export const metadata: Metadata = {
   title: "Terms of sale",
-  description: "Terms governing purchase and use of BIM Lab Revit families.",
+  description: "Terms governing purchase and use of BIMVORA Revit families.",
 };
 
 export default function TermsPage() {
@@ -27,7 +27,7 @@ export default function TermsPage() {
     <LegalLayout title="Terms of sale">
       <p>Last updated 30 August 2026.</p>
       <p>
-        These terms govern the purchase of digital Revit families from BIM Lab.
+        These terms govern the purchase of digital Revit families from BIMVORA.
         By creating an account or placing an order you agree to them.
       </p>
       <h2 className="text-ink">Licence</h2>
@@ -44,7 +44,7 @@ export default function TermsPage() {
       </p>
       <h2 className="text-ink">Autodesk</h2>
       <p>
-        BIM Lab is not affiliated with Autodesk. Revit is a trademark of
+        BIMVORA is not affiliated with Autodesk. Revit is a trademark of
         Autodesk, Inc.
       </p>
     </LegalLayout>

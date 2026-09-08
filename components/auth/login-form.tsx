@@ -40,7 +40,7 @@ export function LoginForm() {
       {state.error ? (
         <p className="text-sm text-destructive">{state.error}</p>
       ) : null}
-      <Button type="submit" className="w-full rounded-none" disabled={pending}>
+      <Button type="submit" className="w-full " disabled={pending}>
         {pending ? "Signing in…" : "Sign in"}
       </Button>
       <p className="text-sm text-muted-foreground">

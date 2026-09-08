@@ -3,7 +3,7 @@ import { CartView } from "@/components/cart/cart-view";
 
 export const metadata: Metadata = {
   title: "Cart",
-  description: "Review Revit families in your BIM Lab cart.",
+  description: "Review Revit families in your BIMVORA cart.",
 };
 
 export default function CartPage() {

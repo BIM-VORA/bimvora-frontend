@@ -12,7 +12,7 @@ export function AddToCartButton({ product }: { product: Product }) {
 
   return (
     <Button
-      className="h-11 w-full rounded-none"
+      className="h-11 w-full "
       onClick={() => {
         addItem(product);
         setAdded(true);

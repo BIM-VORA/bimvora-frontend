@@ -3,10 +3,40 @@ import { isSupabaseConfigured } from "@/lib/supabase/configured";
 import { createClient } from "@/lib/supabase/server";
 import type { Category, Product, ProductFilters } from "@/types/catalog";
 
-function matchesFilters(product: Product, filters: ProductFilters): boolean {
+/** Set of a category's own id plus every descendant id (any depth). */
+function descendantIds(categories: Category[], rootId: string): Set<string> {
+  const childrenByParent = new Map<string, string[]>();
+  for (const c of categories) {
+    if (!c.parentId) continue;
+    const arr = childrenByParent.get(c.parentId) ?? [];
+    arr.push(c.id);
+    childrenByParent.set(c.parentId, arr);
+  }
+  const ids = new Set<string>([rootId]);
+  const stack = [rootId];
+  while (stack.length > 0) {
+    const current = stack.pop() as string;
+    for (const child of childrenByParent.get(current) ?? []) {
+      if (!ids.has(child)) {
+        ids.add(child);
+        stack.push(child);
+      }
+    }
+  }
+  return ids;
+}
+
+function matchesFilters(
+  product: Product,
+  filters: ProductFilters,
+  acceptedCategoryIds: Set<string> | null,
+): boolean {
   if (!product.isPublished) return false;
   if (filters.featured && !product.isFeatured) return false;
-  if (filters.category && product.category?.slug !== filters.category) {
+  if (acceptedCategoryIds && !acceptedCategoryIds.has(product.categoryId)) {
+    return false;
+  }
+  if (filters.manufacturer && product.manufacturer !== filters.manufacturer) {
     return false;
   }
   if (filters.discipline && product.discipline !== filters.discipline) {
@@ -47,7 +77,14 @@ function matchesFilters(product: Product, filters: ProductFilters): boolean {
 }
 
 function fromSeed(filters: ProductFilters = {}): Product[] {
-  return SEED_PRODUCTS.filter((p) => matchesFilters(p, filters));
+  let accepted: Set<string> | null = null;
+  if (filters.category) {
+    const selected = SEED_CATEGORIES.find((c) => c.slug === filters.category);
+    accepted = selected
+      ? descendantIds(SEED_CATEGORIES, selected.id)
+      : new Set<string>();
+  }
+  return SEED_PRODUCTS.filter((p) => matchesFilters(p, filters, accepted));
 }
 
 type ProductRow = {
@@ -61,11 +98,14 @@ type ProductRow = {
   compare_at_price_cents: number | null;
   category_id: string;
   discipline: Product["discipline"];
+  manufacturer: string | null;
   revit_category: string;
   family_kind: Product["familyKind"];
   hosting: Product["hosting"];
   revit_versions: string[];
   file_format: string;
+  cad_formats: string[] | null;
+  has_datasheet: boolean | null;
   is_published: boolean;
   is_featured: boolean;
   seo_title: string | null;
@@ -114,11 +154,14 @@ function mapProduct(row: ProductRow): Product {
     compareAtPriceCents: row.compare_at_price_cents,
     categoryId: row.category_id,
     discipline: row.discipline,
+    manufacturer: row.manufacturer ?? null,
     revitCategory: row.revit_category,
     familyKind: row.family_kind,
     hosting: row.hosting,
     revitVersions: row.revit_versions ?? [],
     fileFormat: row.file_format,
+    cadFormats: row.cad_formats ?? undefined,
+    hasDatasheet: row.has_datasheet ?? undefined,
     isPublished: row.is_published,
     isFeatured: row.is_featured,
     seoTitle: row.seo_title,
@@ -139,8 +182,9 @@ function mapProduct(row: ProductRow): Product {
 
 const productSelect = `
   id, slug, name, sku, short_description, description,
-  price_cents, compare_at_price_cents, category_id, discipline,
+  price_cents, compare_at_price_cents, category_id, discipline, manufacturer,
   revit_category, family_kind, hosting, revit_versions, file_format,
+  cad_formats, has_datasheet,
   is_published, is_featured, seo_title, seo_description,
   categories ( id, slug, name, description, parent_id, discipline, sort_order, is_active ),
   product_images ( id, url, alt, sort_order, is_primary )
@@ -199,6 +243,9 @@ export async function getProducts(
 
   if (filters.featured) query = query.eq("is_featured", true);
   if (filters.discipline) query = query.eq("discipline", filters.discipline);
+  if (filters.manufacturer) {
+    query = query.eq("manufacturer", filters.manufacturer);
+  }
   if (filters.revitVersion) {
     query = query.contains("revit_versions", [filters.revitVersion]);
   }
@@ -221,7 +268,18 @@ export async function getProducts(
   let products = (data as unknown as ProductRow[]).map(mapProduct);
 
   if (filters.category) {
-    products = products.filter((p) => p.category?.slug === filters.category);
+    const categories = await getCategories();
+    const selected = categories.find(
+      (category) => category.slug === filters.category,
+    );
+    if (selected) {
+      const acceptedIds = descendantIds(categories, selected.id);
+      products = products.filter((product) =>
+        acceptedIds.has(product.categoryId),
+      );
+    } else {
+      products = [];
+    }
   }
 
   return products;
@@ -251,4 +309,60 @@ export async function getProductBySlug(
 
 export async function getFeaturedProducts(): Promise<Product[]> {
   return getProducts({ featured: true });
+}
+
+/** Direct children of a category, ordered by sortOrder. */
+export function getChildCategories(
+  categories: Category[],
+  parentId: string,
+): Category[] {
+  return categories
+    .filter((c) => c.parentId === parentId)
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+}
+
+/** Depth of a category in the taxonomy tree. */
+export function getCategoryLevel(
+  categories: Category[],
+  category: Category,
+): "department" | "category" | "product_type" {
+  if (!category.parentId) return "department";
+  const parent = categories.find((c) => c.id === category.parentId);
+  if (parent && !parent.parentId) return "category";
+  return "product_type";
+}
+
+/** Distinct manufacturers across published products. */
+export async function getManufacturers(): Promise<string[]> {
+  const products = await getProducts();
+  const set = new Set<string>();
+  for (const p of products) {
+    if (p.manufacturer) set.add(p.manufacturer);
+  }
+  return [...set].sort();
+}
+
+/**
+ * Published product count per category id, aggregated up the tree so a
+ * department/category count includes products in all descendant types.
+ */
+export async function getCategoryProductCounts(): Promise<
+  Record<string, number>
+> {
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories(),
+  ]);
+  const parentOf = new Map(categories.map((c) => [c.id, c.parentId] as const));
+  const counts: Record<string, number> = {};
+  for (const product of products) {
+    let id: string | null = product.categoryId;
+    const seen = new Set<string>();
+    while (id && !seen.has(id)) {
+      seen.add(id);
+      counts[id] = (counts[id] ?? 0) + 1;
+      id = parentOf.get(id) ?? null;
+    }
+  }
+  return counts;
 }

@@ -9,7 +9,7 @@ export type CheckoutItem = {
 export type CreateCheckoutSessionInput = {
   orderId: string;
   customerEmail: string;
-  currency: "EUR";
+  currency: "USD";
   items: CheckoutItem[];
   successUrl: string;
   cancelUrl: string;

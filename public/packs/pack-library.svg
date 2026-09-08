@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img">
+  <title>BIMVORA Revit family pack</title>
+  <rect width="640" height="480" fill="#ede8dc"/>
+  <g fill="none" stroke="#0e1c2f" stroke-width="2">
+    <rect x="135" y="125" width="370" height="235"/>
+    <path d="M135 175h370M215 125v235M420 125v235"/>
+    <rect x="245" y="205" width="145" height="105"/>
+    <path d="M265 225h105M265 250h105M265 275h65"/>
+    <circle cx="175" cy="150" r="8" fill="#b85c38" stroke="#b85c38"/>
+    <path d="M150 335h55M440 335h40"/>
+  </g>
+  <text x="320" y="425" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5c6578">BIMVORA · FAMILY PACK · MULTI-FILE</text>
+</svg>

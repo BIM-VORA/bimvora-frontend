@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BIMVORA — Logo preview</title>
+<style>
+  :root { font-family: 'Segoe UI', Arial, sans-serif; }
+  body { margin: 0; background: #eef1f5; color: #16345E; }
+  header { padding: 28px 32px; }
+  header h1 { margin: 0; font-size: 20px; letter-spacing: 1px; }
+  header p { margin: 6px 0 0; color: #6B7B90; font-size: 13px; }
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); padding: 0 32px 40px; }
+  .card { border: 1px solid #d7dee8; border-radius: 12px; overflow: hidden; background: #fff; }
+  .card .stage { display: flex; align-items: center; justify-content: center; padding: 32px; min-height: 150px; }
+  .card .stage.dark { background: #10233f; }
+  .card figcaption { border-top: 1px solid #eef1f5; padding: 10px 14px; font-size: 12px; color: #6B7B90; }
+  img.big { width: 240px; max-width: 100%; }
+  img.wide { width: 300px; max-width: 100%; }
+  img.icon { width: 96px; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>BIMVORA — Identité logo (SVG)</h1>
+    <p>Symbole : vortex d'air à 3 pales dans un anneau (flux HVAC + cycle d'air salle blanche). Dégradé bleu marine → azur.</p>
+  </header>
+  <div class="grid">
+    <figure class="card">
+      <div class="stage"><img class="big" src="./logo-primary.svg" alt="Primary" /></div>
+      <figcaption>Primaire (empilé) — usage héros / print</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="stage"><img class="wide" src="./logo-horizontal.svg" alt="Horizontal" /></div>
+      <figcaption>Horizontal — en-tête / navigation</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="stage dark"><img class="wide" src="./logo-horizontal-dark.svg" alt="Horizontal dark" /></div>
+      <figcaption>Horizontal — fond sombre</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="stage"><img class="icon" src="./icon.svg" alt="Icon" /></div>
+      <figcaption>Icône seule (favicon / avatar)</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="stage dark"><img class="icon" src="./icon-dark.svg" alt="Icon dark" /></div>
+      <figcaption>Icône — fond sombre</figcaption>
+    </figure>
+    <figure class="card">
+      <div class="stage"><img class="wide" src="./logo-mono.svg" alt="Mono" /></div>
+      <figcaption>Monochrome (bleu marine)</figcaption>
+    </figure>
+  </div>
+</body>
+</html>

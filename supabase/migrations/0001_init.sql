@@ -1,4 +1,4 @@
--- BIM Lab — initial schema, RLS, storage, and auth hooks.
+-- BIMVORA — initial schema, RLS, storage, and auth hooks.
 -- Run this in the Supabase SQL editor (or via supabase db push).
 
 create extension if not exists "pgcrypto";

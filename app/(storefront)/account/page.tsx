@@ -19,7 +19,7 @@ export default async function AccountPage() {
           Connect Supabase Auth to enable sign-in, profile and future order
           history. Until then, browsing and the cart work locally.
         </p>
-        <Button asChild className="mt-6 rounded-none">
+        <Button asChild className="mt-6 ">
           <Link href="/login">Sign in</Link>
         </Button>
       </div>
@@ -58,7 +58,7 @@ export default async function AccountPage() {
         </li>
       </ul>
       <form action={signOutAction} className="mt-6">
-        <Button type="submit" variant="outline" className="rounded-none">
+        <Button type="submit" variant="outline" className="">
           Sign out
         </Button>
       </form>

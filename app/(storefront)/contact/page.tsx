@@ -3,7 +3,7 @@ import { ContactForm } from "@/components/contact/contact-form";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact BIM Lab about Revit families, licensing or catalog requests.",
+  description: "Contact BIMVORA about Revit families, licensing or catalog requests.",
 };
 
 export default function ContactPage() {
@@ -19,7 +19,7 @@ export default function ContactPage() {
           <p className="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
             Studio
           </p>
-          <p className="mt-3">BIM Lab</p>
+          <p className="mt-3">BIMVORA</p>
           <p className="text-muted-foreground">hello@bimlab.example</p>
           <p className="mt-4 text-muted-foreground">
             Response during business days. Do not send .rfa files to this

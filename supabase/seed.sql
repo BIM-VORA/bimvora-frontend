@@ -1,13 +1,13 @@
--- BIM Lab catalog seed. Run after 0001_init.sql.
+-- BIMVORA catalog seed. Run after all files in supabase/migrations.
 -- Images point at public storefront assets shipped with the Next.js app.
 
 insert into public.categories (id, slug, name, description, discipline, sort_order, is_active)
 values
   (
     '11111111-1111-4111-8111-111111111111',
-    'mechanical-equipment',
-    'Mechanical Equipment',
-    'Air handlers, boilers, fan coils, pumps and packaged HVAC plant families.',
+    'hvac-mechanical',
+    'HVAC / Mechanical',
+    'Mechanical plant, airside systems, hydronic equipment and HVAC distribution families.',
     'hvac',
     10,
     true
@@ -19,7 +19,7 @@ values
     'Diffusers, grilles and registers with parametric airflow and neck sizes.',
     'hvac',
     20,
-    true
+    false
   ),
   (
     '33333333-3333-4333-8333-333333333333',
@@ -28,15 +28,15 @@ values
     'Fire, smoke and volume dampers sized to standard rectangular and round ducts.',
     'hvac',
     30,
-    true
+    false
   ),
   (
     '44444444-4444-4444-8444-444444444444',
     'plumbing',
     'Plumbing',
-    'Pumps, valves and hydronic accessories for MEP coordination.',
+    'Water supply, sanitary fixtures, drainage and plumbing equipment families.',
     'plumbing',
-    40,
+    20,
     true
   ),
   (
@@ -46,7 +46,7 @@ values
     'Code-oriented fire and smoke control families for coordinated models.',
     'fire_protection',
     50,
-    true
+    false
   )
 on conflict (id) do update set
   slug = excluded.slug,
@@ -76,7 +76,7 @@ Built for coordinated HVAC models: dual inlets, discharge connector, optional ho
 Includes type catalogues for 6–16 in. inlets and instance parameters for damper position, min/max airflow and control sequence tags.$md$,
     8900,
     11900,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000008',
     'hvac',
     'Mechanical Equipment',
     'loadable',
@@ -85,7 +85,7 @@ Includes type catalogues for 6–16 in. inlets and instance parameters for dampe
     '.rfa',
     true,
     true,
-    'Modular Dual-Duct VAV Box Revit Family | BIM Lab',
+    'Modular Dual-Duct VAV Box Revit Family | BIMVORA',
     'Professional dual-duct VAV box Revit family for HVAC models. Nested connectors, reheat coil option, Revit 2022–2026.'
   ),
   (
@@ -101,7 +101,7 @@ Mixing box, bag filter, heating/cooling coils and supply fan are nested families
 Shared parameters cover airflow, external static pressure, coil kW, filter class and electrical load.$md$,
     14900,
     null,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000001',
     'hvac',
     'Mechanical Equipment',
     'loadable',
@@ -110,7 +110,7 @@ Shared parameters cover airflow, external static pressure, coil kW, filter class
     '.rfa',
     true,
     true,
-    'Packaged Air Handling Unit Revit Family | BIM Lab',
+    'Packaged Air Handling Unit Revit Family | BIMVORA',
     'Parametric packaged AHU Revit family with nested coils, filters and fan. Built for plant-room coordination.'
   ),
   (
@@ -124,7 +124,7 @@ Shared parameters cover airflow, external static pressure, coil kW, filter class
 2-pipe and 4-pipe type catalogues, cooling/heating capacity parameters, and a nested condensate drain connector. Recess depth is parametric for ceiling void coordination.$md$,
     6900,
     null,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000003',
     'hvac',
     'Mechanical Equipment',
     'loadable',
@@ -133,7 +133,7 @@ Shared parameters cover airflow, external static pressure, coil kW, filter class
     '.rfa',
     true,
     true,
-    'Ceiling Cassette Fan Coil Revit Family | BIM Lab',
+    'Ceiling Cassette Fan Coil Revit Family | BIMVORA',
     'Ceiling-hosted four-way cassette FCU family with 2-pipe and 4-pipe types for HVAC coordination.'
   ),
   (
@@ -147,7 +147,7 @@ Shared parameters cover airflow, external static pressure, coil kW, filter class
 Compact, plus and convectors types. Length, height and depth are type-driven. Supply/return pipe connectors sit at configurable centres. Output (W) is formula-driven from size and mean water temperature.$md$,
     3900,
     null,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000011',
     'hvac',
     'Mechanical Equipment',
     'loadable',
@@ -156,7 +156,7 @@ Compact, plus and convectors types. Length, height and depth are type-driven. Su
     '.rfa',
     true,
     false,
-    'Hydronic Panel Radiator Revit Family | BIM Lab',
+    'Hydronic Panel Radiator Revit Family | BIMVORA',
     'Wall-hosted hydronic panel radiator with parametric size, output and pipe connectors.'
   ),
   (
@@ -170,7 +170,7 @@ Compact, plus and convectors types. Length, height and depth are type-driven. Su
 Flanged pipe connectors, nested motor, and instance parameters for flow, head, efficiency and absorbed power. Isolation valve nested types are optional visibility.$md$,
     5900,
     7500,
-    '44444444-4444-4444-8444-444444444444',
+    '12000000-0000-4000-8000-000000000006',
     'plumbing',
     'Mechanical Equipment',
     'loadable',
@@ -179,7 +179,7 @@ Flanged pipe connectors, nested motor, and instance parameters for flow, head, e
     '.rfa',
     true,
     true,
-    'In-line Centrifugal Pump Revit Family | BIM Lab',
+    'In-line Centrifugal Pump Revit Family | BIMVORA',
     'Parametric in-line centrifugal pump family with flanged connectors and duty-point shared parameters.'
   ),
   (
@@ -193,7 +193,7 @@ Flanged pipe connectors, nested motor, and instance parameters for flow, head, e
 Wall-hosted and face-hosted types. Blade graphics, fusible link, and access panel. Fire rating (EI 60 / EI 90 / EI 120) as types. Duct size parametric to 200×200 through 1200×800 mm.$md$,
     4500,
     null,
-    '33333333-3333-4333-8333-333333333333',
+    '11000000-0000-4000-8000-000000000008',
     'fire_protection',
     'Duct Accessory',
     'loadable',
@@ -202,7 +202,7 @@ Wall-hosted and face-hosted types. Blade graphics, fusible link, and access pane
     '.rfa',
     true,
     false,
-    'Rectangular Fire Damper Revit Family | BIM Lab',
+    'Rectangular Fire Damper Revit Family | BIMVORA',
     'Wall-hosted rectangular fire damper with EI rating types and parametric duct sizes.'
   ),
   (
@@ -216,7 +216,7 @@ Wall-hosted and face-hosted types. Blade graphics, fusible link, and access pane
 Neck diameter types, 1–4 cone cores, and optional plenum box nested family. Airflow, throw and NC rating parameters. Hosts to ceiling grids with alignment reference.$md$,
     2900,
     null,
-    '22222222-2222-4222-8222-222222222222',
+    '11000000-0000-4000-8000-000000000006',
     'hvac',
     'Air Terminal',
     'loadable',
@@ -225,7 +225,7 @@ Neck diameter types, 1–4 cone cores, and optional plenum box nested family. Ai
     '.rfa',
     true,
     true,
-    'Square Ceiling Diffuser Revit Family | BIM Lab',
+    'Square Ceiling Diffuser Revit Family | BIMVORA',
     'Ceiling-hosted square diffuser family with parametric neck sizes and nested plenum box.'
   ),
   (
@@ -239,7 +239,7 @@ Neck diameter types, 1–4 cone cores, and optional plenum box nested family. Ai
 Level/roof hosted with nested curb. Discharge cowl, bird screen and electrical connector. Duty parameters: airflow, static pressure, power and weight for structural coordination.$md$,
     7900,
     null,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000005',
     'hvac',
     'Mechanical Equipment',
     'loadable',
@@ -248,7 +248,7 @@ Level/roof hosted with nested curb. Discharge cowl, bird screen and electrical c
     '.rfa',
     true,
     false,
-    'Roof Exhaust Fan Revit Family | BIM Lab',
+    'Roof Exhaust Fan Revit Family | BIMVORA',
     'Curb-mounted roof exhaust fan with nested curb, electrical connector and duty parameters.'
   ),
   (
@@ -262,7 +262,7 @@ Level/roof hosted with nested curb. Discharge cowl, bird screen and electrical c
 Connectors: heating flow/return, gas, condensate, flue. Clearance envelope for service access. Output types from 45 to 280 kW. Weight and electrical load for coordination.$md$,
     12900,
     null,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000011',
     'hvac',
     'Mechanical Equipment',
     'loadable',
@@ -271,7 +271,7 @@ Connectors: heating flow/return, gas, condensate, flue. Clearance envelope for s
     '.rfa',
     true,
     true,
-    'Condensing Boiler Revit Family | BIM Lab',
+    'Condensing Boiler Revit Family | BIMVORA',
     'Floor-standing condensing boiler family with hydronic, gas, flue and condensate connectors.'
   ),
   (
@@ -285,7 +285,7 @@ Connectors: heating flow/return, gas, condensate, flue. Clearance envelope for s
 Primary and secondary pipe connectors with configurable handedness. Plate count types. Duty parameters: capacity, pressure drop, approach temperature.$md$,
     6400,
     null,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000011',
     'hvac',
     'Mechanical Equipment',
     'loadable',
@@ -294,7 +294,7 @@ Primary and secondary pipe connectors with configurable handedness. Plate count 
     '.rfa',
     true,
     false,
-    'Brazed Plate Heat Exchanger Revit Family | BIM Lab',
+    'Brazed Plate Heat Exchanger Revit Family | BIMVORA',
     'Compact brazed plate heat exchanger family with primary/secondary connectors and duty parameters.'
   ),
   (
@@ -306,7 +306,7 @@ Primary and secondary pipe connectors with configurable handedness. Plate count 
     'This family must never appear on the storefront.',
     100,
     null,
-    '11111111-1111-4111-8111-111111111111',
+    '11000000-0000-4000-8000-000000000001',
     'hvac',
     'Mechanical Equipment',
     'loadable',

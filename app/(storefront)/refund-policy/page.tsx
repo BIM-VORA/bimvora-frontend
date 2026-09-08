@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Refund policy",
-  description: "Refund rules for BIM Lab digital Revit families.",
+  description: "Refund rules for BIMVORA digital Revit families.",
 };
 
 export default function RefundPolicyPage() {

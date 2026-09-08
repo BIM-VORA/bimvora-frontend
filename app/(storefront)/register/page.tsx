@@ -3,7 +3,7 @@ import { RegisterForm } from "@/components/auth/register-form";
 
 export const metadata: Metadata = {
   title: "Create account",
-  description: "Create a BIM Lab account to purchase and download Revit families.",
+  description: "Create a BIMVORA account to purchase and download Revit families.",
 };
 
 export default function RegisterPage() {

@@ -4,7 +4,7 @@ import { getProducts } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search BIM Lab Revit families by name, SKU or category.",
+  description: "Search BIMVORA Revit families by name, SKU or category.",
 };
 
 export default async function SearchPage({

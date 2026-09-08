@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { AddToCartButton } from "@/components/cart/add-to-cart-button";
+import { Breadcrumbs, type Crumb } from "@/components/catalog/breadcrumbs";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { DisciplineBadge, VersionChips } from "@/components/product/meta";
+import { ProductDownloads } from "@/components/product/product-downloads";
 import { ProductSpecTable } from "@/components/product/product-spec-table";
-import { getProductBySlug, getProducts } from "@/lib/catalog";
+import { getCategories, getProductBySlug, getProducts } from "@/lib/catalog";
 import { formatEur, SITE_NAME } from "@/lib/format";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -29,6 +31,27 @@ export default async function ProductPage({ params }: Props) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
+  const categories = await getCategories();
+  const crumbs: Crumb[] = [{ label: "Home", href: "/" }];
+  if (product.category) {
+    const type = product.category;
+    const parent = type.parentId
+      ? categories.find((c) => c.id === type.parentId)
+      : undefined;
+    const grandparent = parent?.parentId
+      ? categories.find((c) => c.id === parent.parentId)
+      : undefined;
+    if (grandparent)
+      crumbs.push({
+        label: grandparent.name,
+        href: `/categories/${grandparent.slug}`,
+      });
+    if (parent)
+      crumbs.push({ label: parent.name, href: `/categories/${parent.slug}` });
+    crumbs.push({ label: type.name, href: `/categories/${type.slug}` });
+  }
+  crumbs.push({ label: product.name });
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -39,7 +62,7 @@ export default async function ProductPage({ params }: Props) {
     image: product.images.map((i) => i.url),
     offers: {
       "@type": "Offer",
-      priceCurrency: "EUR",
+      priceCurrency: "USD",
       price: (product.priceCents / 100).toFixed(2),
       availability: "https://schema.org/InStock",
     },
@@ -51,32 +74,31 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav className="font-mono text-[11px] text-muted-foreground">
-        <Link href="/shop" className="hover:text-ink">
-          Shop
-        </Link>
-        {product.category ? (
-          <>
-            {" / "}
-            <Link
-              href={`/categories/${product.category.slug}`}
-              className="hover:text-ink"
-            >
-              {product.category.name}
-            </Link>
-          </>
-        ) : null}
-      </nav>
+      <Breadcrumbs items={crumbs} />
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
         <ProductGallery images={product.images} name={product.name} />
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <DisciplineBadge discipline={product.discipline} />
+            {product.category ? (
+              <Link
+                href={`/categories/${product.category.slug}`}
+                className="font-mono text-[11px] text-copper uppercase hover:underline"
+              >
+                {product.category.name}
+              </Link>
+            ) : null}
             <span className="font-mono text-[11px] text-muted-foreground">
               {product.sku}
             </span>
           </div>
           <h1 className="mt-3 text-3xl">{product.name}</h1>
+          {product.manufacturer ? (
+            <p className="mt-1 text-sm text-muted-foreground">
+              by{" "}
+              <span className="text-ink">{product.manufacturer}</span>
+            </p>
+          ) : null}
           <p className="mt-3 text-muted-foreground">{product.shortDescription}</p>
           <div className="mt-4">
             <VersionChips versions={product.revitVersions} />
@@ -97,7 +119,15 @@ export default async function ProductPage({ params }: Props) {
             </p>
           </div>
           <div className="mt-8">
-            <ProductSpecTable product={product} />
+            <ProductDownloads product={product} />
+          </div>
+          <div className="mt-8">
+            <h2 className="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
+              Technical specifications
+            </h2>
+            <div className="mt-2">
+              <ProductSpecTable product={product} />
+            </div>
           </div>
         </div>
       </div>

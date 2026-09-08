@@ -50,7 +50,7 @@ export function ProfileForm({
       {state.success ? (
         <p className="text-sm text-ink">{state.success}</p>
       ) : null}
-      <Button type="submit" className="rounded-none" disabled={pending}>
+      <Button type="submit" className="" disabled={pending}>
         {pending ? "Saving…" : "Save profile"}
       </Button>
     </form>

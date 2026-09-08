@@ -41,6 +41,7 @@ export type Database = {
         | "fire_protection"
         | "architectural"
         | "structural"
+        | "clean_room"
         | "other";
     };
   };

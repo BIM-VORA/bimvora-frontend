@@ -1,7 +1,7 @@
 export function formatEur(cents: number): string {
-  return new Intl.NumberFormat("en-IE", {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "EUR",
+    currency: "USD",
   }).format(cents / 100);
 }
 
@@ -11,8 +11,8 @@ export function formatFileSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-export const SITE_NAME = "BIM Lab";
+export const SITE_NAME = "BIMVORA";
 export const SITE_TAGLINE =
-  "Professional Revit families for MEP and BIM teams";
+  "Professional Revit families for MEP and clean-room BIM teams";
 export const SITE_DESCRIPTION =
-  "BIM Lab is a professional marketplace for Autodesk Revit families — HVAC, plumbing, fire protection and coordinated MEP content for engineers, BIM modelers and contractors.";
+  "BIMVORA is a professional BIM/Revit library — HVAC / Mechanical, Plumbing, and Clean Room / Pharmaceutical families organised by department, category and product type.";

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Frequently asked questions about BIM Lab Revit families, versions and licensing.",
+  description: "Frequently asked questions about BIMVORA Revit families, versions and licensing.",
 };
 
 const FAQS = [

@@ -3,7 +3,7 @@ import { DISCIPLINE_LABELS, type Discipline } from "@/types/catalog";
 
 export function DisciplineBadge({ discipline }: { discipline: Discipline }) {
   return (
-    <Badge variant="outline" className="rounded-none font-mono text-[10px] tracking-wider uppercase">
+    <Badge variant="outline" className=" font-mono text-[10px] tracking-wider uppercase">
       {DISCIPLINE_LABELS[discipline]}
     </Badge>
   );

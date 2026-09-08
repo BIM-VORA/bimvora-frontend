@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ImagePlaceholder } from "@/components/catalog/image-placeholder";
 import type { ProductImage } from "@/types/catalog";
 
 export function ProductGallery({
@@ -15,16 +16,18 @@ export function ProductGallery({
 
   return (
     <div className="space-y-3">
-      <div className="blueprint-grid aspect-[4/3] border border-border bg-card">
-        {current ? (
-          // eslint-disable-next-line @next/next/no-img-element
+      {current ? (
+        <div className="blueprint-grid aspect-[4/3] border border-border bg-card">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={current.url}
             alt={current.alt || name}
             className="h-full w-full object-cover"
           />
-        ) : null}
-      </div>
+        </div>
+      ) : (
+        <ImagePlaceholder label={name} ratio="aspect-[4/3]" />
+      )}
       {images.length > 1 ? (
         <div className="flex gap-2">
           {images.map((img, i) => (

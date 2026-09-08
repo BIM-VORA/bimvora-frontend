@@ -32,7 +32,7 @@ export function ContactForm() {
         Message
         <textarea required name="message" rows={5} className="border border-border bg-background px-3 py-2 outline-none focus:border-ink" />
       </label>
-      <Button type="submit" className="rounded-none" disabled={pending}>
+      <Button type="submit" className="" disabled={pending}>
         {pending ? "Sending…" : "Send message"}
       </Button>
       <p className="text-xs text-muted-foreground">

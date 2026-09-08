@@ -3,7 +3,7 @@ import { ForgotPasswordForm } from "@/components/auth/forgot-password-form";
 
 export const metadata: Metadata = {
   title: "Forgot password",
-  description: "Reset your BIM Lab account password.",
+  description: "Reset your BIMVORA account password.",
 };
 
 export default function ForgotPasswordPage() {

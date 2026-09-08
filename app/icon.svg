@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BIMVORA">
+  <defs>
+    <linearGradient id="icGreen" x1="0" y1="0" x2="0.25" y2="1">
+      <stop offset="0" stop-color="#3EE58C"/>
+      <stop offset="1" stop-color="#12B29C"/>
+    </linearGradient>
+    <linearGradient id="icBlue" x1="1" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#2AC6EC"/>
+      <stop offset="1" stop-color="#2E6FE0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0E1C2F"/>
+  <g transform="translate(6.6,6.6) scale(0.423)">
+    <path d="M55 8 L38 8 L8 38 L8 82 L38 112 L55 112 L55 85 L30 60 L55 35 Z" fill="url(#icGreen)"/>
+    <path d="M65 8 L82 8 L112 38 L112 82 L82 112 L65 112 L65 85 L90 60 L65 35 Z" fill="url(#icBlue)"/>
+  </g>
+</svg>

@@ -1,99 +1,150 @@
 import Link from "next/link";
 import { ProductCard } from "@/components/product/product-card";
 import { Button } from "@/components/ui/button";
+import {
+  CTAButtons,
+  HeroContent,
+  HeroSection,
+  PreviewBadge,
+  RevitPreview,
+} from "@/components/home/hero";
 import { getCategories, getFeaturedProducts } from "@/lib/catalog";
-import { SITE_TAGLINE } from "@/lib/format";
+import { getDictionary } from "@/lib/i18n/server";
+import { FAMILY_PACKS } from "@/lib/packs";
 import { DISCIPLINE_LABELS } from "@/types/catalog";
 
 export default async function HomePage() {
-  const [featured, categories] = await Promise.all([
+  const [featured, categories, { dict }] = await Promise.all([
     getFeaturedProducts(),
     getCategories(),
+    getDictionary(),
   ]);
+  const home = dict.home;
+  const departments = categories.filter((category) => !category.parentId);
 
   return (
     <>
-      <section className="blueprint-grid border-b border-border bg-ink text-paper">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-          <div>
-            <p className="font-mono text-[11px] tracking-[0.2em] text-copper uppercase">
-              Revit family marketplace
-            </p>
-            <h1 className="mt-4 max-w-xl text-4xl text-paper sm:text-5xl">
-              {SITE_TAGLINE}
-            </h1>
-            <p className="mt-4 max-w-lg text-paper/70">
-              Loadable .rfa content with nested connectors, shared parameters and
-              version coverage for coordinated HVAC and MEP models — not
-              generic 3D furniture.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild className="rounded-none bg-copper text-paper hover:bg-copper/90">
-                <Link href="/shop">Browse families</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="rounded-none border-paper/30 bg-transparent text-paper hover:bg-paper/10"
-              >
-                <Link href="/about">How we build content</Link>
-              </Button>
-            </div>
-          </div>
-          <dl className="grid grid-cols-2 gap-px border border-paper/20 bg-paper/10 text-sm">
-            {[
-              ["Format", ".rfa loadable"],
-              ["Versions", "2022–2026"],
-              ["Currency", "EUR"],
-              ["Delivery", "Account download"],
-            ].map(([k, v]) => (
-              <div key={k} className="bg-ink px-4 py-5">
-                <dt className="font-mono text-[10px] tracking-wider text-paper/50 uppercase">
-                  {k}
-                </dt>
-                <dd className="mt-1">{v}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+      <HeroSection
+        content={
+          <HeroContent
+            eyebrow={home.heroEyebrow}
+            title={home.heroTitle}
+            lead={home.heroLead}
+            actions={
+              <CTAButtons
+                actions={[
+                  { label: home.browse, href: "/shop", variant: "primary" },
+                  { label: home.comparePacks, href: "/packs", variant: "ghost" },
+                ]}
+              />
+            }
+          />
+        }
+        visual={
+          <RevitPreview
+            src="/hero/clean-room-model.png"
+            alt="Coordinated Revit clean-room project model — isometric view"
+            width={1024}
+            height={640}
+            priority
+            overlay={<PreviewBadge label="Clean-room · Revit model" />}
+          />
+        }
+      />
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
+      <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
-              Disciplines
+            <p className="font-mono text-[11px] font-medium tracking-wider text-muted-foreground uppercase">
+              {home.deptEyebrow}
             </p>
-            <h2 className="mt-1 text-2xl">Shop by MEP category</h2>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight">{home.deptTitle}</h2>
           </div>
-          <Link href="/shop" className="text-sm text-copper hover:underline">
-            All families
+          <Link href="/shop" className="text-sm font-medium text-primary hover:underline">
+            {home.allFamilies}
           </Link>
         </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((c) => (
-            <Link
-              key={c.id}
-              href={`/categories/${c.slug}`}
-              className="border border-border bg-card p-5 hover:border-ink"
-            >
-              <p className="font-mono text-[10px] tracking-wider text-copper uppercase">
-                {DISCIPLINE_LABELS[c.discipline]}
-              </p>
-              <h3 className="mt-2 text-lg">{c.name}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
-            </Link>
-          ))}
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {departments.map((department, index) => {
+            const children = categories.filter(
+              (category) => category.parentId === department.id,
+            );
+            return (
+              <article
+                key={department.id}
+                className="group flex flex-col overflow-hidden rounded-xl border border-border/80 bg-card shadow-sm transition-all hover:shadow-md hover:border-primary/30"
+              >
+                <Link
+                  href={`/categories/${department.slug}`}
+                  className="border-b border-border/50 p-6 transition-colors hover:bg-secondary/40"
+                >
+                  <p className="font-mono text-[10px] font-medium tracking-wider text-primary uppercase">
+                    0{index + 1} · {DISCIPLINE_LABELS[department.discipline]}
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold">{department.name}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {department.description}
+                  </p>
+                </Link>
+                <div className="grid flex-1 grid-cols-2 gap-x-4 gap-y-3 p-6 text-sm">
+                  {children.map((category) => (
+                    <Link
+                      key={category.id}
+                      href={`/categories/${category.slug}`}
+                      className="text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {category.name}
+                    </Link>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      <section className="border-t border-border bg-card/50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <p className="font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
-            Featured
+      <section className="border-t border-border bg-ink text-paper">
+        <div className="mx-auto max-w-6xl px-4 py-20">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="font-mono text-[11px] font-medium tracking-wider text-primary uppercase">
+                {home.packsEyebrow}
+              </p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-paper">{home.packsTitle}</h2>
+            </div>
+            <Link href="/packs" className="text-sm font-medium text-primary hover:underline">
+              {home.packsCompare}
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-xl border border-paper/20 bg-paper/20 sm:grid-cols-3 shadow-lg">
+            {FAMILY_PACKS.slice(0, 3).map((pack) => (
+              <Link
+                key={pack.id}
+                href="/packs"
+                className="bg-ink p-8 transition-colors hover:bg-paper/5"
+              >
+                <p className="font-mono text-[10px] font-medium tracking-wider text-paper/50 uppercase">
+                  Pack {pack.number} · {pack.audience}
+                </p>
+                <h3 className="mt-2 text-xl font-semibold text-paper">{pack.shortName}</h3>
+                <p className="mt-4 font-semibold text-primary">
+                  {pack.priceCents === 0
+                    ? home.packFree
+                    : `$${(pack.priceCents / 100).toFixed(0)} ${home.packOneTime}`}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border/50 bg-secondary/30">
+        <div className="mx-auto max-w-6xl px-4 py-20">
+          <p className="font-mono text-[11px] font-medium tracking-wider text-muted-foreground uppercase">
+            {home.featuredEyebrow}
           </p>
-          <h2 className="mt-1 text-2xl">Families used on live projects</h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <h2 className="mt-2 text-3xl font-bold tracking-tight">{home.featuredTitle}</h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -101,24 +152,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 py-14 md:grid-cols-3">
-        {[
-          [
-            "Project-ready parameters",
-            "Airflow, duty, fire rating and electrical load are modelled as shared parameters so they schedule cleanly.",
-          ],
-          [
-            "Connectors that coordinate",
-            "Duct, pipe, electrical and nested families are placed for clash-detectable MEP models, not just pretty geometry.",
-          ],
-          [
-            "Versioned files",
-            "Each listing states supported Revit years. Downloads will be issued per purchase in a later phase.",
-          ],
-        ].map(([title, body]) => (
-          <div key={title} className="border-t border-ink pt-4">
-            <h3 className="text-base">{title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+      <section className="mx-auto grid max-w-6xl gap-8 px-4 py-20 md:grid-cols-3">
+        {home.features.map((feature) => (
+          <div key={feature.title} className="border-t-2 border-primary/20 pt-5">
+            <h3 className="text-lg font-semibold">{feature.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
           </div>
         ))}
       </section>
