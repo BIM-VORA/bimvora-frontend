@@ -23,7 +23,7 @@ export type CreateOrderResponse = {
 };
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://api.bimvora.com";
+  process.env.NEXT_PUBLIC_API_URL ?? "https://api.bimvora.site";
 
 export async function createOrder(
   payload: CreateOrderPayload,
